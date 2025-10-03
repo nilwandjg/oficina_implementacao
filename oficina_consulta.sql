@@ -33,3 +33,11 @@ FROM ordem_servico os
 JOIN ordem_de_servico_has_peca osp ON os.idOrdem_de_servico = osp.idOrdem_de_servico
 JOIN peca p ON osp.idPeca = p.idPeca
 GROUP BY os.idOrdem_de_servico;
+
+-- Ordens com valor total de peças acima de R$30
+SELECT os.numero, SUM(p.valor_unitario) AS total_pecas
+FROM ordem_servico os
+JOIN ordem_de_servico_has_peca osp ON os.idOrdem_de_servico = osp.idOrdem_de_servico
+JOIN peca p ON osp.idPeca = p.idPeca
+GROUP BY os.idOrdem_de_servico
+HAVING SUM(p.valor_unitario) > 300;
